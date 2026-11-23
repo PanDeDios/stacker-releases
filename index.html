@@ -13,8 +13,15 @@
   h1{font-size:40px;line-height:1.15;margin:40px 0 16px}
   p{color:#b9b6c8}
   ul{padding-left:20px;color:#cfcce0}
-  .btn{display:inline-block;margin-top:24px;padding:12px 22px;border-radius:999px;background:#7c5cff;color:#fff;text-decoration:none;font-weight:600}
+  .downloads{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;max-width:520px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 20px;border-radius:12px;background:#7c5cff;color:#fff;text-decoration:none;font-weight:600;font-size:16px;transition:background .15s,transform .15s}
+  .btn:hover{background:#6a4bf0}
+  .btn:active{transform:scale(.98)}
+  .btn svg{width:20px;height:20px;flex:none;fill:currentColor}
+  .btn small{display:block;font-weight:400;font-size:12px;opacity:.8;line-height:1.1}
+  .btn span{line-height:1.15;text-align:left}
   .alt{margin-top:12px;font-size:14px;color:#8a879a}
+  @media (max-width:520px){.downloads{grid-template-columns:1fr}}
   .mac-help{display:none;margin-top:20px;padding:14px 18px;border-radius:12px;background:#1f1f29;font-size:14px;color:#b9b6c8}
   .mac-help ol{margin:8px 0 0;padding-left:20px}
   footer{margin-top:64px;font-size:14px;color:#8a879a}
@@ -37,8 +44,17 @@
     <li>Calendarios compartidos</li>
     <li>Integración con Dropbox</li>
   </ul>
-  <a class="btn" id="dl" href="https://github.com/PanDeDios/stacker-releases/releases/latest">Descargar Stacker</a>
-  <div class="alt" id="alt">También disponible para <a id="other" href="https://github.com/PanDeDios/stacker-releases/releases/latest">otros sistemas</a>.</div>
+  <div class="downloads">
+    <a class="btn" id="dl-win" href="https://github.com/PanDeDios/stacker-releases/releases/latest">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.1 10.4 4v7.1H3V5.1Zm0 13.8 7.4 1.1v-7H3v5.9Zm8.3 1.2L21 21.5v-8.4h-9.7v7Zm0-16.2v7.2H21V2.5l-9.7 1.4Z"/></svg>
+      <span>Descargar para Windows<small id="v-win">Windows 10 y 11</small></span>
+    </a>
+    <a class="btn" id="dl-mac" href="https://github.com/PanDeDios/stacker-releases/releases/latest">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.73c-.02-2.22 1.82-3.29 1.9-3.34-1.04-1.52-2.65-1.72-3.22-1.75-1.37-.14-2.68.81-3.37.81-.7 0-1.77-.79-2.9-.77-1.49.02-2.87.87-3.64 2.2-1.55 2.69-.4 6.67 1.11 8.85.74 1.07 1.62 2.27 2.77 2.22 1.11-.04 1.53-.72 2.88-.72 1.34 0 1.72.72 2.9.7 1.2-.02 1.96-1.09 2.69-2.16.85-1.24 1.2-2.44 1.22-2.5-.03-.01-2.33-.9-2.34-3.54ZM14.16 6.2c.61-.74 1.03-1.77.91-2.8-.88.04-1.95.59-2.58 1.33-.57.65-1.07 1.7-.93 2.71.98.08 1.99-.5 2.6-1.24Z"/></svg>
+      <span>Descargar para Mac<small id="v-mac">macOS 11 o más nuevo</small></span>
+    </a>
+  </div>
+  <div class="alt">Gratis. Las actualizaciones llegan solas dentro de la app.</div>
   <div class="mac-help" id="machelp">
     <strong>Instalar en Mac</strong>
     <ol>
@@ -50,22 +66,19 @@
   <script>
   (function () {
     var ua = navigator.userAgentData && navigator.userAgentData.platform || navigator.platform || navigator.userAgent
-    var mac = /mac/i.test(ua), win = /win/i.test(ua)
-    var os = mac ? 'mac' : 'win'
-    var dl = document.getElementById('dl'), other = document.getElementById('other')
-    dl.textContent = 'Descargar para ' + (mac ? 'Mac' : 'Windows')
-    other.textContent = mac ? 'Windows' : 'Mac'
-    if (mac) document.getElementById('machelp').style.display = 'block'
-    if (!mac && !win) document.getElementById('alt').innerHTML = 'Stacker es para computadoras con Windows o Mac. <a href="https://github.com/PanDeDios/stacker-releases/releases/latest">Ver todas las descargas</a>.'
+    if (/mac/i.test(ua)) document.getElementById('machelp').style.display = 'block'
     fetch('https://api.github.com/repos/PanDeDios/stacker-releases/releases/latest')
       .then(function (r) { return r.json() })
       .then(function (rel) {
         var find = function (re) { var a = (rel.assets || []).filter(function (x) { return re.test(x.name) })[0]; return a && a.browser_download_url }
         var exe = find(/Setup.*\.exe$/i), dmg = find(/-mac\.dmg$/i)
-        var mine = os === 'mac' ? dmg : exe, theirs = os === 'mac' ? exe : dmg
-        if (mine) dl.href = mine
-        if (theirs) other.href = theirs
-        if (rel.tag_name) dl.title = 'Stacker ' + rel.tag_name.replace(/^v/, '')
+        if (exe) document.getElementById('dl-win').href = exe
+        if (dmg) document.getElementById('dl-mac').href = dmg
+        if (rel.tag_name) {
+          var v = 'Versión ' + rel.tag_name.replace(/^v/, '')
+          document.getElementById('v-win').textContent = v + ' · Windows 10 y 11'
+          document.getElementById('v-mac').textContent = v + ' · macOS 11+'
+        }
       })
       .catch(function () {})
   })()
