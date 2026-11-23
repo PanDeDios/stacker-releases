@@ -14,6 +14,9 @@
   p{color:#b9b6c8}
   ul{padding-left:20px;color:#cfcce0}
   .btn{display:inline-block;margin-top:24px;padding:12px 22px;border-radius:999px;background:#7c5cff;color:#fff;text-decoration:none;font-weight:600}
+  .alt{margin-top:12px;font-size:14px;color:#8a879a}
+  .mac-help{display:none;margin-top:20px;padding:14px 18px;border-radius:12px;background:#1f1f29;font-size:14px;color:#b9b6c8}
+  .mac-help ol{margin:8px 0 0;padding-left:20px}
   footer{margin-top:64px;font-size:14px;color:#8a879a}
   a{color:#a995ff}
 </style>
@@ -22,19 +25,51 @@
 <main>
   <div class="brand"><img src="logo.png" alt=""> Stacker</div>
   <h1>Tu equipo, tus ideas y tus archivos en un solo lugar.</h1>
-  <p><strong>Stacker</strong> es una aplicación de escritorio gratuita para Windows pensada para equipos creativos (productoras, estudios de diseño, agencias). Su objetivo es que un equipo pueda organizar un proyecto en un solo lugar: conversar por chat y voz, juntar referencias visuales en moodboards, planificar fechas en calendarios compartidos y acceder a sus archivos de Dropbox, sin saltar entre varias aplicaciones.</p>
+  <p><strong>Stacker</strong> es una aplicación de escritorio gratuita para Windows y Mac pensada para equipos creativos (productoras, estudios de diseño, agencias). Su objetivo es que un equipo pueda organizar un proyecto en un solo lugar: conversar por chat y voz, juntar referencias visuales en moodboards, planificar fechas en calendarios compartidos y acceder a sus archivos de Dropbox, sin saltar entre varias aplicaciones.</p>
   <h2 style="font-size:20px;margin-top:32px">¿Para qué usa Stacker tu cuenta de Google?</h2>
   <p>Solo para que inicies sesión. Stacker pide únicamente tu nombre, tu email y tu foto de perfil, para crear tu cuenta y mostrarle a tu equipo quién sos. No accede a Gmail, Drive, contactos ni a ningún otro dato de tu cuenta de Google. Más detalles en la <a href="privacy.html">Política de privacidad</a>.</p>
   <h2 style="font-size:20px;margin-top:32px">Qué incluye</h2>
   <ul>
     <li>Espacios de trabajo con roles y permisos</li>
     <li>Chat en tiempo real y mensajes directos</li>
-    <li>Canales de voz</li>
+    <li>Canales de voz con cámara y pantalla compartida</li>
     <li>Moodboards infinitos para referencias</li>
     <li>Calendarios compartidos</li>
     <li>Integración con Dropbox</li>
   </ul>
-  <a class="btn" href="https://github.com/PanDeDios/stacker-releases/releases/latest">Descargar para Windows</a>
+  <a class="btn" id="dl" href="https://github.com/PanDeDios/stacker-releases/releases/latest">Descargar Stacker</a>
+  <div class="alt" id="alt">También disponible para <a id="other" href="https://github.com/PanDeDios/stacker-releases/releases/latest">otros sistemas</a>.</div>
+  <div class="mac-help" id="machelp">
+    <strong>Instalar en Mac</strong>
+    <ol>
+      <li>Abrí el archivo <code>.dmg</code> y arrastrá Stacker a Aplicaciones.</li>
+      <li>La primera vez, hacé clic derecho sobre Stacker → <em>Abrir</em> → <em>Abrir igualmente</em> (o desde Ajustes del Sistema → Privacidad y seguridad).</li>
+      <li>Las actualizaciones te avisan dentro de la app y se descargan desde acá.</li>
+    </ol>
+  </div>
+  <script>
+  (function () {
+    var ua = navigator.userAgentData && navigator.userAgentData.platform || navigator.platform || navigator.userAgent
+    var mac = /mac/i.test(ua), win = /win/i.test(ua)
+    var os = mac ? 'mac' : 'win'
+    var dl = document.getElementById('dl'), other = document.getElementById('other')
+    dl.textContent = 'Descargar para ' + (mac ? 'Mac' : 'Windows')
+    other.textContent = mac ? 'Windows' : 'Mac'
+    if (mac) document.getElementById('machelp').style.display = 'block'
+    if (!mac && !win) document.getElementById('alt').innerHTML = 'Stacker es para computadoras con Windows o Mac. <a href="https://github.com/PanDeDios/stacker-releases/releases/latest">Ver todas las descargas</a>.'
+    fetch('https://api.github.com/repos/PanDeDios/stacker-releases/releases/latest')
+      .then(function (r) { return r.json() })
+      .then(function (rel) {
+        var find = function (re) { var a = (rel.assets || []).filter(function (x) { return re.test(x.name) })[0]; return a && a.browser_download_url }
+        var exe = find(/Setup.*\.exe$/i), dmg = find(/-mac\.dmg$/i)
+        var mine = os === 'mac' ? dmg : exe, theirs = os === 'mac' ? exe : dmg
+        if (mine) dl.href = mine
+        if (theirs) other.href = theirs
+        if (rel.tag_name) dl.title = 'Stacker ' + rel.tag_name.replace(/^v/, '')
+      })
+      .catch(function () {})
+  })()
+  </script>
   <footer>
     <a href="privacy.html">Política de privacidad</a> · <a href="terms.html">Términos de uso</a> · <a href="https://github.com/PanDeDios/stacker-releases/issues">Contacto y soporte</a>
   </footer>
