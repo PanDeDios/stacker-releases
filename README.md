@@ -1,12 +1,12 @@
-# Stacker
+# Stackker
 
-Moodboards, carpetas y chat para tu equipo, en una app de escritorio para Windows.
+Moodboards, carpetas y chat para tu equipo, en una app de escritorio para Windows y Mac.
 
 ## Descargar
 
-**[Descargar Stacker para Windows](https://github.com/PanDeDios/stacker-releases/releases/latest/download/Stacker-Setup-0.1.0.exe)**
+**[Descargar Stackker para Windows](https://pandedios.github.io/stacker-releases/)**
 
-1. Abrí `Stacker-Setup-0.1.0.exe`.
+1. Abrí el instalador `Stacker-Setup-….exe` que bajaste.
 2. Si Windows muestra "Windows protegió su PC", tocá **Más información → Ejecutar de todas formas** (la app todavía no está firmada).
 3. Creá tu cuenta con mail y contraseña.
 4. Pedile a quien te invitó el **código de invitación** y entrá en **Unirme con un código**.

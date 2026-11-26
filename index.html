@@ -3,46 +3,47 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stacker</title>
+<title>Stackker</title>
 <link rel="icon" href="logo.png">
 <style>
-  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#16161d;color:#e8e6f0;line-height:1.6}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(1200px 600px at 20% -10%,#2a1f4a 0%,#0d0c14 60%) fixed,#0d0c14;color:#ece9f5;line-height:1.6}
   main{max-width:760px;margin:0 auto;padding:64px 24px}
   .brand{display:flex;align-items:center;gap:14px;font-size:22px;font-weight:600}
-  .brand img{width:56px;height:56px}
+  .brand img{width:64px;height:64px;filter:drop-shadow(0 8px 24px rgba(255,94,126,.35))}
   h1{font-size:40px;line-height:1.15;margin:40px 0 16px}
   p{color:#b9b6c8}
   ul{padding-left:20px;color:#cfcce0}
   .downloads{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;max-width:520px}
-  .btn{display:flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 20px;border-radius:12px;background:#7c5cff;color:#fff;text-decoration:none;font-weight:600;font-size:16px;transition:background .15s,transform .15s}
-  .btn:hover{background:#6a4bf0}
+  .btn{display:flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 20px;border-radius:12px;background:linear-gradient(135deg,#e2475f,#9a3ce8);color:#fff;box-shadow:0 6px 20px rgba(180,77,255,.25);text-decoration:none;font-weight:600;font-size:16px;transition:filter .15s,transform .15s}
+  .btn:hover{filter:brightness(1.08)}
   .btn:active{transform:scale(.98)}
   .btn svg{width:20px;height:20px;flex:none;fill:currentColor}
   .btn small{display:block;font-weight:400;font-size:12px;opacity:.8;line-height:1.1}
   .btn span{line-height:1.15;text-align:left}
   .alt{margin-top:12px;font-size:14px;color:#8a879a}
   @media (max-width:520px){.downloads{grid-template-columns:1fr}}
-  .mac-help{display:none;margin-top:20px;padding:14px 18px;border-radius:12px;background:#1f1f29;font-size:14px;color:#b9b6c8}
+  .mac-help{display:none;margin-top:20px;padding:14px 18px;border-radius:12px;background:#1c1830;font-size:14px;color:#b9b6c8}
   .mac-help ol{margin:8px 0 0;padding-left:20px}
   footer{margin-top:64px;font-size:14px;color:#8a879a}
-  a{color:#a995ff}
+  a{color:#ff9db0}
+  h1 .hl{background:linear-gradient(90deg,#ffb35c,#ff5e7e 50%,#b44dff);-webkit-background-clip:text;background-clip:text;color:transparent}
 </style>
 </head>
 <body>
 <main>
-  <div class="brand"><img src="logo.png" alt=""> Stacker</div>
-  <h1>Tu equipo, tus ideas y tus archivos en un solo lugar.</h1>
-  <p><strong>Stacker</strong> es una aplicación de escritorio gratuita para Windows y Mac pensada para equipos creativos (productoras, estudios de diseño, agencias). Su objetivo es que un equipo pueda organizar un proyecto en un solo lugar: conversar por chat y voz, juntar referencias visuales en moodboards, planificar fechas en calendarios compartidos y acceder a sus archivos de Dropbox, sin saltar entre varias aplicaciones.</p>
-  <h2 style="font-size:20px;margin-top:32px">¿Para qué usa Stacker tu cuenta de Google?</h2>
-  <p>Solo para que inicies sesión. Stacker pide únicamente tu nombre, tu email y tu foto de perfil, para crear tu cuenta y mostrarle a tu equipo quién sos. No accede a Gmail, Drive, contactos ni a ningún otro dato de tu cuenta de Google. Más detalles en la <a href="privacy.html">Política de privacidad</a>.</p>
+  <div class="brand"><img src="logo.png" alt=""> Stackker</div>
+  <h1>Tu equipo, tus ideas y tus archivos <span class="hl">en un solo lugar.</span></h1>
+  <p><strong>Stackker</strong> es una aplicación de escritorio gratuita para Windows y Mac pensada para equipos creativos (productoras, estudios de diseño, agencias). Su objetivo es que un equipo pueda organizar un proyecto en un solo lugar: conversar por chat y voz, juntar referencias visuales en moodboards, planificar fechas en calendarios compartidos y acceder a sus archivos de Dropbox, sin saltar entre varias aplicaciones.</p>
+  <h2 style="font-size:20px;margin-top:32px">¿Para qué usa Stackker tu cuenta de Google?</h2>
+  <p>Solo para que inicies sesión. Stackker pide únicamente tu nombre, tu email y tu foto de perfil, para crear tu cuenta y mostrarle a tu equipo quién sos. No accede a Gmail, Drive, contactos ni a ningún otro dato de tu cuenta de Google. Más detalles en la <a href="privacy.html">Política de privacidad</a>.</p>
   <h2 style="font-size:20px;margin-top:32px">Qué incluye</h2>
   <ul>
     <li>Espacios de trabajo con roles y permisos</li>
     <li>Chat en tiempo real y mensajes directos</li>
     <li>Canales de voz con cámara y pantalla compartida</li>
-    <li>Moodboards infinitos para referencias</li>
-    <li>Calendarios compartidos</li>
-    <li>Integración con Dropbox</li>
+    <li>Moodboards infinitos: imágenes, videos, notas de voz y cualquier archivo</li>
+    <li>Calendarios, planillas y documentos de Google como canales</li>
+    <li>Tus archivos guardados en tu Dropbox o Google Drive, con una carpeta por canal</li>
   </ul>
   <div class="downloads">
     <a class="btn" id="dl-win" href="https://github.com/PanDeDios/stacker-releases/releases/latest">
@@ -58,9 +59,9 @@
   <div class="mac-help" id="machelp">
     <strong>Instalar en Mac</strong>
     <ol>
-      <li>Abrí el archivo <code>.dmg</code> y arrastrá Stacker a Aplicaciones.</li>
-      <li>Abrí Stacker. Si macOS avisa que no puede verificarla, tocá <em>OK</em>, andá a <em>Ajustes del Sistema → Privacidad y seguridad</em>, bajá hasta el aviso de Stacker y tocá <em>Abrir igualmente</em>. Solo hace falta la primera vez.</li>
-      <li>Las actualizaciones te avisan dentro de la app y se descargan desde acá.</li>
+      <li>Abrí el archivo <code>.dmg</code> y arrastrá Stackker a Aplicaciones.</li>
+      <li>Abrí Stackker. Si macOS avisa que no puede verificarla, tocá <em>OK</em>, andá a <em>Ajustes del Sistema → Privacidad y seguridad</em>, bajá hasta el aviso de Stackker y tocá <em>Abrir igualmente</em>. Solo hace falta la primera vez.</li>
+      <li>Después, las actualizaciones se instalan solas desde la app (con Stackker dentro de Aplicaciones).</li>
     </ol>
   </div>
   <script>
